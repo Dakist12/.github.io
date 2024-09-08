@@ -1,3 +1,4 @@
+/* 전체 페이지를 중앙 정렬 */
 body {
     display: flex;
     justify-content: center;
@@ -7,6 +8,7 @@ body {
     background-color: #f0f0f0;
 }
 
+/* 원 스타일 설정 */
 #circle {
     width: 150px;
     height: 150px;
@@ -19,5 +21,6 @@ body {
     font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    text-align: center;
 }
 
