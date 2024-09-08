@@ -9,4 +9,3 @@ circle.addEventListener('click', function() {
         circle.style.backgroundColor = 'red';
     }
 });
-
