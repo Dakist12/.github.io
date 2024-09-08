@@ -13,7 +13,7 @@ body {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background-color: red;
+    background-color: red; /* 처음에는 빨간색 */
     color: white;
     display: flex;
     justify-content: center;
@@ -23,4 +23,3 @@ body {
     transition: background-color 0.3s ease;
     text-align: center;
 }
-
