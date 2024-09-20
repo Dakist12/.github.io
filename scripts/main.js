@@ -1,5 +1,4 @@
     // 처음 페이지가 로드될 때 localStorage에서 상태 확인
-npm init
     import { initializeApp } from 'firebase/app';
     
     // TODO: Replace the following with your app's Firebase project configuration
