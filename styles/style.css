@@ -13,7 +13,7 @@ body {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background-color: red; 
+    background-color: red; /* 처음에는 빨간색 빨간색 생각하니까 보고싶은이가생기는걸보러가야겠다 */
     color: white;
     display: flex;
     justify-content: center;
@@ -22,12 +22,4 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-align: center;
-    position: relative; /* 자식 요소 절대 위치 설정을 위한 relative */
-}
-
-/* 클릭 횟수 스타일 */
-#count {
-    font-size: 36px; /* 숫자 크기 조정 */
-    position: absolute; /* 원의 중앙에 위치하도록 설정 */
-    color: white;
 }
