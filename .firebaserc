@@ -1,5 +1,5 @@
 {
   "projects": {
-    "default": "where-is-teacher-d3e3c"  // Firebase 콘솔에서 생성한 프로젝트 ID
+    "default": "where-is-teacher-d3e3c" 
   }
 }
