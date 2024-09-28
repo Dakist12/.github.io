@@ -1,23 +1,10 @@
 {
-  "name": "where-is-teacher",  
-  "version": "1.0.0",          
-  "description": "A simple app to track teacher's status.",  
-  "main": "index.js",          
+  "name": "your-project-name",
+  "version": "1.0.0",
   "scripts": {
-    "deploy": "firebase deploy",  
-    "start": "node index.js"     
+    "deploy": "firebase deploy"
   },
   "dependencies": {
-    "firebase": "^10.13.2"       
-  },
-  "devDependencies": {
-   
-  },
-  "keywords": [                   
-    "firebase",
-    "teacher",
-    "tracking"
-  ],
-  "author": "App Development Department",         
-  "license": "ISC"               
+    "firebase": "^10.13.2"
+  }
 }
