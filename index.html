@@ -15,7 +15,7 @@
     <script src="scripts/main.js" type="module"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+        import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDD19tQFgggIdLLxqu0we8MfDtLFCx1PRs",
@@ -31,17 +31,15 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // 기존 자바스크립트 실행 코드
-        window.onload = async function() {
+        // Firestore 실시간 업데이트 코드
+        window.onload = function() {
             const circle = document.getElementById('circle');
             const docRef = doc(db, 'statuses', 'circleState');
 
-            try {
-                const docSnap = await getDoc(docRef);
-
+            onSnapshot(docRef, (docSnap) => {
                 if (docSnap.exists()) {
                     const savedState = docSnap.data().state;
-                    console.log('Firestore에서 불러온 상태:', savedState);
+                    console.log('실시간 Firestore 상태 업데이트:', savedState);
 
                     if (savedState === 'Online') {
                         circle.textContent = 'Online';
@@ -51,24 +49,17 @@
                         circle.style.backgroundColor = 'red';
                     }
                 } else {
-                    console.log('Firestore에 저장된 상태가 없습니다. 기본 상태로 설정합니다.');
                     circle.textContent = 'Offline';
                     circle.style.backgroundColor = 'red';
                 }
-            } catch (error) {
-                console.error('Firestore에서 상태를 불러오는 중 오류 발생:', error);
-            }
+            });
 
             circle.addEventListener('click', async function() {
                 try {
                     if (circle.textContent.trim() === 'Offline') {
-                        circle.textContent = 'Online';
-                        circle.style.backgroundColor = 'green';
                         await setDoc(docRef, { state: 'Online' });
                         console.log('Firestore에 "Online" 상태 저장');
                     } else {
-                        circle.textContent = 'Offline';
-                        circle.style.backgroundColor = 'red';
                         await setDoc(docRef, { state: 'Offline' });
                         console.log('Firestore에 "Offline" 상태 저장');
                     }
