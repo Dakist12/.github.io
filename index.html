@@ -7,12 +7,13 @@
     <link href="styles/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div id="clickCount">버튼 클릭 횟수: 0</div> <!-- 클릭 횟수 표시 추가 -->
-    <div id="circle">Offline</div>
+    <div id="circle">
+        <span id="count">0</span> <!-- 클릭 횟수를 표시할 span 추가 -->
+    </div>
     <script src="scripts/main.js" type="module"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-        import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+        import { getFirestore, doc, onSnapshot, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDD19tQFgggIdLLxqu0we8MfDtLFCx1PRs",
@@ -29,7 +30,7 @@
 
         window.onload = function() {
             const circle = document.getElementById('circle');
-            const clickCountDisplay = document.getElementById('clickCount'); // 클릭 횟수 표시 요소
+            const countDisplay = document.getElementById('count'); // 클릭 횟수 표시 요소
             const docRef = doc(db, 'statuses', 'circleState');
             const clickCountRef = doc(db, 'statuses', 'clickCount'); // 클릭 카운트를 저장할 문서 참조
 
@@ -57,9 +58,9 @@
             onSnapshot(clickCountRef, (docSnap) => {
                 if (docSnap.exists()) {
                     const clickCount = docSnap.data().count || 0;
-                    clickCountDisplay.textContent = `버튼 클릭 횟수: ${clickCount}`;
+                    countDisplay.textContent = clickCount; // 숫자만 표시
                 } else {
-                    clickCountDisplay.textContent = '버튼 클릭 횟수: 0';
+                    countDisplay.textContent = '0'; // 기본값 0
                 }
             });
 
