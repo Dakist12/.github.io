@@ -1,12 +1,12 @@
 {
   "hosting": {
-    "public": "public",                   // 호스팅할 파일이 위치한 디렉토리
+    "public": "public",                 
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
-    "rewrites": [                          // 싱글 페이지 애플리케이션의 URL 리라이트 설정
+    "rewrites": [                        
       {
         "source": "**",
         "destination": "/index.html"
