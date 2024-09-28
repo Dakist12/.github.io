@@ -5,32 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>버뜬</title>
     <link href="styles/style.css" rel="stylesheet" type="text/css" />
-    <style>
-        #counter {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        #circle {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px auto;
-            background-color: red; /* 초기 상태는 오프라인을 나타냄 */
-            color: white;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
-    <div id="counter">카운트: 0</div>
     <div id="circle">Offline</div>
     <script src="scripts/main.js" type="module"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-        import { getFirestore, doc, onSnapshot, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+        import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDD19tQFgggIdLLxqu0we8MfDtLFCx1PRs",
@@ -44,22 +25,11 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        let clickCount = 0;  // 카운트 초기화
 
-        window.onload = async function() {
-            const counterDisplay = document.getElementById('counter');
+        window.onload = function() {
             const circle = document.getElementById('circle');
             const docRef = doc(db, 'statuses', 'circleState');
-            const countDocRef = doc(db, 'statuses', 'clickCount');
 
-            // Firestore에서 카운트 불러오기
-            const countSnap = await getDoc(countDocRef);
-            if (countSnap.exists()) {
-                clickCount = countSnap.data().count;  // Firestore에서 카운트 값 가져오기
-                counterDisplay.textContent = `카운트: ${clickCount}`; // 카운트 표시
-            }
-
-            // Firestore 실시간 업데이트 코드
             onSnapshot(docRef, (docSnap) => {
                 if (docSnap.exists()) {
                     const savedState = docSnap.data().state;
@@ -80,12 +50,6 @@
 
             circle.addEventListener('click', async function() {
                 try {
-                    clickCount++;  // 버튼 클릭 시 카운트 증가
-                    counterDisplay.textContent = `카운트: ${clickCount}`; // 카운트 업데이트
-
-                    // Firestore에 카운트 저장
-                    await setDoc(countDocRef, { count: clickCount });
-
                     if (circle.textContent.trim() === 'Offline') {
                         await setDoc(docRef, { state: 'Online' });
                         console.log('Firestore에 "Online" 상태 저장');
@@ -100,6 +64,4 @@
         };
     </script>
 </body>
-</html>
-
 </html>
