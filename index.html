@@ -7,13 +7,11 @@
     <link href="styles/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div id="circle">
-        <span id="count">0</span> <!-- 클릭 횟수를 표시할 span 추가 -->
-    </div>
+    <div id="circle">Offline</div>
     <script src="scripts/main.js" type="module"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-        import { getFirestore, doc, onSnapshot, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+        import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDD19tQFgggIdLLxqu0we8MfDtLFCx1PRs",
@@ -30,17 +28,13 @@
 
         window.onload = function() {
             const circle = document.getElementById('circle');
-            const countDisplay = document.getElementById('count'); // 클릭 횟수 표시 요소
             const docRef = doc(db, 'statuses', 'circleState');
-            const clickCountRef = doc(db, 'statuses', 'clickCount'); // 클릭 카운트를 저장할 문서 참조
 
-            // Firestore의 실시간 업데이트 기능 사용
             onSnapshot(docRef, (docSnap) => {
                 if (docSnap.exists()) {
                     const savedState = docSnap.data().state;
                     console.log('실시간 Firestore 상태 업데이트:', savedState);
 
-                    // Firestore의 상태에 따라 UI 업데이트
                     if (savedState === 'Online') {
                         circle.textContent = 'Online';
                         circle.style.backgroundColor = 'green';
@@ -54,17 +48,6 @@
                 }
             });
 
-            // 클릭 횟수 실시간 업데이트
-            onSnapshot(clickCountRef, (docSnap) => {
-                if (docSnap.exists()) {
-                    const clickCount = docSnap.data().count || 0;
-                    countDisplay.textContent = clickCount; // 숫자만 표시
-                } else {
-                    countDisplay.textContent = '0'; // 기본값 0
-                }
-            });
-
-            // 클릭할 때마다 상태 변경 및 Firestore에 저장
             circle.addEventListener('click', async function() {
                 try {
                     if (circle.textContent.trim() === 'Offline') {
@@ -74,12 +57,6 @@
                         await setDoc(docRef, { state: 'Offline' });
                         console.log('Firestore에 "Offline" 상태 저장');
                     }
-
-                    // 클릭 카운트 증가 및 Firestore에 저장
-                    const clickCountSnap = await getDoc(clickCountRef);
-                    let newCount = clickCountSnap.exists() ? (clickCountSnap.data().count || 0) + 1 : 1;
-                    await setDoc(clickCountRef, { count: newCount });
-                    console.log('Firestore에 클릭 카운트 저장:', newCount);
                 } catch (error) {
                     console.error('Firestore에 상태를 저장하는 중 오류 발생:', error);
                 }
