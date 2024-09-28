@@ -4,14 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>선생님 어디계세요?</title>
-    <!-- CSS 파일 연결 -->
     <link href="styles/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <!-- 원 div -->
     <div id="circle">Offline</div>
-
-    <!-- 자바스크립트 파일 연결 -->
     <script src="scripts/main.js" type="module"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
@@ -27,11 +23,9 @@
             measurementId: "G-5LD2HBD0YZ"
         };
 
-        // Firebase 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Firestore 실시간 업데이트 코드
         window.onload = function() {
             const circle = document.getElementById('circle');
             const docRef = doc(db, 'statuses', 'circleState');
@@ -71,3 +65,4 @@
     </script>
 </body>
 </html>
+
