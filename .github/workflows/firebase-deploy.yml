@@ -3,14 +3,13 @@ name: Deploy to Firebase
 on:
   push:
     branches:
-      - main  # main 브랜치에 푸시될 때 배포
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out code
+      - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set up Node.js
@@ -18,11 +17,12 @@ jobs:
         with:
           node-version: '14'  # Node.js 버전 설정
 
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools  # Firebase CLI 설치
+
       - name: Install dependencies
-        run: npm install  # 의존성 설치
+        run: npm install  # 프로젝트 의존성 설치
 
       - name: Deploy to Firebase
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}  # Firebase 토큰 (GitHub Secrets에서 가져옴)
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}  # 서비스 계정 키
-        run: npm run deploy  # 배포 명령어 (package.json에 스크립트가 필요함)
+        run: npm run deploy  # Firebase 배포
+
