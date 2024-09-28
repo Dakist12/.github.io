@@ -1,6 +1,7 @@
 /* 전체 페이지를 중앙 정렬 */
 body {
     display: flex;
+    flex-direction: column; /* 세로로 정렬 */
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -8,12 +9,18 @@ body {
     background-color: #f0f0f0;
 }
 
+/* 클릭 횟수 표시 스타일 */
+#clickCount {
+    font-size: 24px;
+    margin-bottom: 20px; /* 원 위쪽 여백 추가 */
+}
+
 /* 원 스타일 설정 */
 #circle {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background-color: red; /* 처음에는 빨간색 빨간색 생각하니까 보고싶은이가생기는걸보러가야겠다 */
+    background-color: red; 
     color: white;
     display: flex;
     justify-content: center;
