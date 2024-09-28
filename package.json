@@ -1,1 +1,23 @@
-
+{
+  "name": "where-is-teacher",  // 프로젝트 이름
+  "version": "1.0.0",          // 프로젝트 버전
+  "description": "A simple app to track teacher's status.",  // 프로젝트 설명
+  "main": "index.js",          // 진입 파일 (필요에 따라 수정)
+  "scripts": {
+    "deploy": "firebase deploy",  // Firebase 배포 스크립트
+    "start": "node index.js"      // 개발 서버 실행 스크립트 (필요시 추가)
+  },
+  "dependencies": {
+    "firebase": "^10.13.2"       // Firebase 의존성 (최신 버전으로 설정)
+  },
+  "devDependencies": {
+    // 필요한 개발 의존성 여기에 추가
+  },
+  "keywords": [                   // 프로젝트 키워드 (필요시 추가)
+    "firebase",
+    "teacher",
+    "tracking"
+  ],
+  "author": "App Development Department",         // 저자 이름 (필요시 수정)
+  "license": "ISC"               // 라이선스 (필요시 수정)
+}
